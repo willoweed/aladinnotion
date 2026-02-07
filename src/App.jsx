@@ -8,12 +8,12 @@ export default function App() {
 
   // ✅ Search Books
   const searchBooks = async () => {
-    if (!query.trim()) return;
-
     setLoading(true);
 
     const res = await fetch(`/api/search?q=${query}`);
-    const data = await res.json();
+    const text = await res.text();
+
+    const data = JSON.parse(text);
 
     setResults(data.item || []);
     setLoading(false);
@@ -30,17 +30,23 @@ export default function App() {
         {!open ? (
           <span className="libraryIcon">📚</span>
         ) : (
-          <input
-            autoFocus
-            className="glassInput"
-            type="text"
-            placeholder="Search"
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            onKeyDown={(e) => e.key === "Enter" && searchBooks()}
-          />
-        )}
-      </div>
+          
+    <div style={styles.inputWrapper}>
+      <span style={styles.searchIcon}>🔍</span>
+
+      <input
+        autoFocus
+        className="glassInput"
+        type="text"
+        placeholder="Search"
+        value={query}
+        onChange={(e) => setQuery(e.target.value)}
+        onKeyDown={(e) => e.key === "Enter" && searchBooks()}
+      />
+    </div>
+
+            )}
+          </div>
 
       {/* Loading */}
       {loading && <p style={styles.loading}>Searching...</p>}
