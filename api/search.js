@@ -9,7 +9,7 @@ export default async function handler(req, res) {
 
   const url = `https://www.aladin.co.kr/ttb/api/ItemSearch.aspx?ttbkey=${key}&Query=${encodeURIComponent(
     query
-  )}&QueryType=Title&MaxResults=5&output=js&Version=20131101`;
+  )}&QueryType=Title&MaxResults=5&output=json&Version=20131101`;
 
   const response = await fetch(url);
   const data = await response.json();
